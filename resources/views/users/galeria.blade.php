@@ -1,6 +1,13 @@
 @extends('layouts.master')
 @section('content')
-
+<div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(img/bg-img/breadcumb.jpg);">
+        <div class="bradcumbContent">
+            <h2>Galeria</h2>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+    <!-- ##### Breadcumb Area End ##### -->
 <!-- ##### Miembros Banda Area Start ##### -->
 <div class="featured-shows-area section-padding-100">
         <div class="container">
@@ -140,5 +147,13 @@
 
         </div>
     </div>
-    <!-- Gallery Area End -->
+
+    <!-- **** All JS Files ***** -->
+    <!-- jQuery 2.2.4 -->
+    <script src="js/jquery.min.js"></script>
+    <!-- All Plugins -->
+    <script src="js/alime.bundle.js"></script>
+    <!-- Active -->
+    <script src="js/default-assets/active.js"></script>
+
 @endsection

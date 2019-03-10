@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <!-- ##### Breadcumb Area Start ##### -->
-<div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(img/bg-img/breadcumb.jpg);">
+<div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(img/bg-img/breadcumb5.jpg);">
         <div class="bradcumbContent">
             <h2>Biografia</h2>
         </div>

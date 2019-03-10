@@ -55,7 +55,7 @@
                         <p>Banda de ROCK ubicada en Tigre, Prov. de Buenos Aires. Están invitados a escuchar.</p>
                         <div class="buy-tickets">
                                 <!--el href tiene que ser dinamico-->
-                                <a href="sobrenosotros.html" class="btn musica-btn">Saber Mas</a>
+                                <a href="{{url('aboutUs')}}" class="btn musica-btn">Saber Mas</a>
                             </div>
                         <!--   <img src="img/core-img/signature.png" alt="">-->
                     </div>
@@ -166,9 +166,10 @@
                             </div>
                     <div class="featured-album-content d-flex flex-wrap">
 
-                        <!-- Album Thumbnail -->
-                        <div class="album-thumbnail h-100 bg-img" style="background-image: url(img/bg-img/bg-4.jpg);"></div>
-
+                        <!-- Album Thumbnail image: url(img/bg-img/album.jpg);-->
+                        <div class="album-thumbnail h-100 bg-img">
+                            <img src="img/bg-img/album.jpg" alt="Portada Album" style="margin:7% 5%; 7% 5%;">
+                            </div>
                         <!-- Album Songs -->
                         <div class="album-songs h-100">
 
@@ -177,7 +178,6 @@
                                
                                 <div class="album-buy-now">
                                     <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:2rTSqY8x1KT76ImiGYcFlp&size=detail&theme=dark&show-count=0" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
-                                  
                                 </div>
                             </div>
 

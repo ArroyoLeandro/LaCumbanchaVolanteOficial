@@ -15,12 +15,12 @@ Copyright ©<script type="text/javascript">document.write(new Date().getFullYear
 </div>
 <div class="col-12 col-md-6">
     <div class="classynav" style="margin-left: 150px">
-        <ul >
-            <li><a href="index.html">Home</a></li>
-            <li><a href="SobreNosotros.html">Sobre Nosotros</a></li>                                 
-            <li><a href="Galeria.html">Galeria</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-        </ul>
+        <ul>
+            <li><a href="{{url('/')}}">Home</a></li>
+            <li><a href="{{url('aboutUs')}}">Sobre Nosotros</a></li>                                 
+            <li><a href="{{url('gallery')}}">Galeria</a></li>
+            <li><a href="{{url('contact')}}">Contacto</a></li>
+         </ul>
 
         
 

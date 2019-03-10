@@ -15,7 +15,7 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav logo -->
-                    <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+                    <a href="{{url('/')}}" class="nav-brand"><img src="img/core-img/fondo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -33,10 +33,10 @@
                         <!-- NavBar -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="SobreNosotros.html">Sobre Nosotros</a></li>                                 
-                                <li><a href="Galeria.html">Galeria</a></li>
-                                <li><a href="contacto.html">Contacto</a></li>
+                                <li><a href="{{url('/')}}">Home</a></li>
+                                <li><a href="{{url('aboutUs')}}">Sobre Nosotros</a></li>                                 
+                                <li><a href="{{url('gallery')}}">Galeria</a></li>
+                                <li><a href="{{url('contact')}}">Contacto</a></li>
                             </ul>
 
                             <!-- Redes Sociales -->

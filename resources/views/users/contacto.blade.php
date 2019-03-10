@@ -3,7 +3,7 @@
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(img/bg-img/breadcumb4.jpg);">
         <div class="bradcumbContent">
-            <h2>Contact</h2>
+            <h2>Contacto</h2>
         </div>
     </div>
     <!-- bg gradients -->
