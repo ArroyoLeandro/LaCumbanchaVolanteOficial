@@ -28,3 +28,14 @@ Route::get('gallery', function () {
 Route::get('contact', function () {
     return view('users.contacto');
 });
+
+
+Route::post('/actualizardatosBiografia', 'DatosbiografiaController@actualizardatosBiografia')->name('actualizardatosBiografia');
+
+Route::get('/contactoM', 'DatosbiografiaController@index')->name('contactoM');
+
+Auth::routes();
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/home', 'HomeController@index')->name('home');
