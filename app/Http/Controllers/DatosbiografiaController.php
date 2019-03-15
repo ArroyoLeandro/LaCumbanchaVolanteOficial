@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
+use Redirect;
 
 use App\datosbiografia;
 
@@ -23,7 +23,7 @@ class DatosbiografiaController extends Controller
         $dato = new Datosbiografia();
         $dato->titulo = $request->titulo;
         $dato->descripcion = $request->descripcion;
-        $dato->imagen = "";   
+        $dato->imagen = "img/fotoBio.jpg";   
         $dato->save();//guardo los datos en la bd
 
             if ($request->hasFile('foto')) {//subo y guardo la foto en mi public/img
@@ -34,16 +34,39 @@ class DatosbiografiaController extends Controller
                 $image_resize = Image::make($image->getRealPath());
                 $image_resize->save(public_path('img/' .$fileName));
             }    
-        }           
+           
+        }
+        $datos = Datosbiografia::first();
+
+
+        //limpiar cache....
+        header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        //-------------------------------------
+
+        return Redirect::to(route('aboutUs'));
     }
 
 
     public function index(){
        
         // Contactis::where()
-        $contacto = "hola ke tal";
+       // $contacto = "hola ke tal";
         // $contacto  = Datos::find(0);
-        return view('admin.contactoM')->with('contacto',$contacto);
+        return view('users.nosotros');//->with('contacto',$contacto);
        
+    }
+
+    public function into(){
+       
+        //capturo dato de la bd (con select busco alguno especifico -- "->select('titulo','descripcion')->get();"    --- )
+
+        $datos = Datosbiografia::orderBy('id', 'desc')->first();
+
+        //dd($datos);
+       return view("users.nosotros", compact('datos'));
     }
 }

@@ -51,8 +51,8 @@
                 <!-- sobre nosotros  Contenido -->
                 <div class="col-12 col-lg-6">
                     <div class="about-content mb-100">
-                        <h4>Hola, Somos La Cumbancha Volante</h4>
-                        <p>Banda de ROCK ubicada en Tigre, Prov. de Buenos Aires. Están invitados a escuchar.</p>
+                        <h2 style="color:#fff;">Hola, Somos La Cumbancha Volante</h2>
+                        <p>Banda de ROCK ubicada en Tigre, Provincia de Buenos Aires. Están invitados a escuchar.</p>
                         <div class="buy-tickets">
                                 <!--el href tiene que ser dinamico-->
                                 <a href="{{url('aboutUs')}}" class="btn musica-btn">Saber Mas</a>
@@ -74,86 +74,282 @@
                         <h2>Proximos shows</h2>
                         <h6>#QueNoTeLaCuenten  - #FamiliaCumbanchera</h6>
                     </div>
+                  
                 </div>
             </div>
 
+            
             <div class="row">
                 <div class="col-12">
+
                     <!-- Proximos Shows Content -->
                     <div class="upcoming-shows-content">
 
+                        @foreach($fecha as $Fec)
+
+                     
                         <!-- Single Proximos Shows -->
                         <div class="single-upcoming-shows d-flex align-items-center flex-wrap">
                             <div class="shows-date">
+                            @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                            <span><h6 style="color:#fff;">ID: {{ $Fec->id}}</h6></span>
+                            @endif
                                 <!--el DIA Y MES tiene que ser dinamico-->
-                                <h2>22 <span>Diciembre</span></h2>
+                                <h2>{{ $Fec->dia}} <span>{{ $Fec->mes}}</span></h2>
                             </div>
                             <div class="shows-desc d-flex align-items-center">
                                 <div class="shows-img">
                                     <!--Foto Promocional del evento-->
                                     <!--el src tiene que ser dinamico-->
-                                    <img src="img/bg-img/d5.jpg" alt="">
+                                    <img src="{{ $Fec->Imagen }}" alt="">
                                 </div>
                                 <div class="shows-name">
                                     <!--el NOMBRE tiene que ser dinamico-->
-                                    <h6>AHI VA!</h6>
+                                    <h6>{{ $Fec->nombre}}</h6>
                                     <!--el LUGAR tiene que ser dinamico-->
-                                    <p>City Bar</p>
+                                    <p>{{ $Fec->lugar}}</p>
                                 </div>
                             </div>
                             <div class="shows-location">
                                <!--Tomar el mismo que en la clase show name-->
-                                <p>City Bar</p>
+                                <p>{{ $Fec->lugar}}</p>
                             </div>
                             <div class="shows-time">
                                 <!--LA HORA tiene que ser dinamico-->
-                                <p>22:30</p>
+                                <p>{{ $Fec->hora}}</p>
                             </div>
                             <div class="buy-tickets">
                                 <!--el href tiene que ser dinamico-->
-                                <a href="#" class="btn musica-btn">Ir a Evento</a>
+                                <a href="{{ 'http://'.$Fec->link }}" class="btn musica-btn" target="_blank">Ir a Evento</a>
                             </div>
                         </div>
 
+                        @endforeach
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
-    <!-- ##### Proximos Shows Area Fin ##### -->
 
-    <!-- ##### Music Player Area Start ##### 
-    <div class="music-player-area section-padding-100">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="music-player-slides owl-carousel">
-    
-                             Single Music Player (comentar)
-                            <div class="single-music-player">
-                                <img src="img/bg-img/mp1.jpg" alt="">
-    
-                                <div class="music-info d-flex justify-content-between">
-                                    <div class="music-text">
-                                        <h5>Artist’s/Band Name</h5>
-                                        <p>Love is all Around</p>
-                                    </div>
-                                    <div class="music-play-icon">
-                                        <audio preload="auto" controls>
-                                        <source src="audio/dummy-audio.mp3">
-                                    </audio>
-                                    </div>
+
+<!--BOTONES MAS EL MODAL PARA EDITAR-->
+    <div class="row">
+            <div class="col-12" style="background-color:#0c0527;">
+                    @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                      
+                    
+                    <div class="btn-group btn-group-justified"  style="margin-left: 35%;"> 
+                        <!-- Button trigger modal nuevo -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevo">
+                            Nueva Fecha
+                            </button>
+
+                             <!-- Button trigger modal editar-->
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEditar"
+                         style="margin-left: 5%;">
+                            Editar Fecha
+                            </button>
+
+                            <!-- Button trigger modal borrar-->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar" 
+                        style="margin-left: 5%;">
+                            Eliminar Fecha
+                            </button>
+                   </div>      
+<!--------------------------------- -----------------INICIO DEL Modal  NUEVA FECHA -------------------------------->
+                            <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                             <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Nueva</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            </div>
-    
-                          
-    
+                                <div class="modal-body">
+                                    
+                                    <!--FORMULARIO EN MODAL-->
+                                    <form form action="{{ 'NuevaFecha' }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                                           <meta name="csrf-token" content="{{ csrf_token() }}">
+                                           {{ csrf_field() }}
+                                
+                                        <div class="form-group">
+                                         <label>Dia</label>
+                                         <input type="text" class="form-control" name="dia" placeholder="Ej: 22" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Mes</label>
+                                         <input type="text" class="form-control" name="mes" placeholder="Ej: Diciembre" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Nombre</label>
+                                         <input type="text" class="form-control" name="nombre" placeholder="Ej: AHI VA!" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Lugar</label>
+                                         <input type="text" class="form-control" name="lugar" placeholder="Ej: City Bar" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Hora</label>
+                                         <input type="text" class="form-control" name="hora" placeholder="Ej: 22:00" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Link Evento Facebook</label>
+                                         <input type="text" class="form-control" name="link" placeholder="Ej: www.facebook.com/evento" required>
+                                        </div>
+
+                                
+                                <div class="form-group">
+                                        
+                                    <div class="input-group image-preview">
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-input -->
+                                            <div class="btn btn-default image-preview-input">
+                                                <span class="glyphicon glyphicon-folder-open">Buscar Imagen</span><br>
+                                                 <!-- <span class="image-preview-input-title">Buscar Imagen->  </span> -->
+                                                <input type="file" accept="image/jpg" name="foto" required/> <!-- rename it -->
+                                            </div>
+                                        </span>
+                                    </div>
+                                        </div>
+                           
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                </div>
+                                </div>
+                                </form>
+        <!--------------------------------- -----------------FINAL DEL Modal  NUEVA FECHA -------------------------------->
+        @endif
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        ##### Music Player Area End ##### -->
+
+
+
+        <!--------------------------------- -----------------INICIO DEL Modal  EDITAR FECHA -------------------------------->
+<div class="row">
+            <div class="col-12" style="background-color:#0c0527;">
+                    @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                            
+                            <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                             <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <!--FORMULARIO EN MODAL-->
+                                    <form form action="{{ 'ActualizarFechas' }}" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                                           <meta name="csrf-token" content="{{ csrf_token() }}">
+                                           {{ csrf_field() }}
+                                           <div class="form-group">
+                                        <label>Ingrese el ID de la Fecha a Editar: </label>
+                                          <input type="text" class="form-control" name="identificador" placeholder="Ej: 1" required>
+                                        </div> 
+                                        <div class="form-group">
+                                         <label>Nuevo Dia</label>
+                                         <input type="text" class="form-control" name="dia" placeholder="Ej: 22" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Nuevo Mes</label>
+                                         <input type="text" class="form-control" name="mes" placeholder="Ej: Diciembre" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Nuevo Nombre</label>
+                                         <input type="text" class="form-control" name="nombre" placeholder="Ej: AHI VA!" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Nuevo Lugar</label>
+                                         <input type="text" class="form-control" name="lugar" placeholder="Ej: City Bar" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Nueva Hora</label>
+                                         <input type="text" class="form-control" name="hora" placeholder="Ej: 22:00" required>
+                                        </div>
+                                        <div class="form-group">
+                                         <label>Nuevo Link Evento Facebook</label>
+                                         <input type="text" class="form-control" name="link" placeholder="Ej: www.facebook.com/evento" required>
+                                        </div>
+
+                                
+                                <div class="form-group">
+                                        
+                                    <div class="input-group image-preview">
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-input -->
+                                            <div class="btn btn-default image-preview-input">
+                                                <span class="glyphicon glyphicon-folder-open">Nueva Imagen</span><br>
+                                                 <!-- <span class="image-preview-input-title">Buscar Imagen->  </span> -->
+                                                <input type="file" accept="image/jpg" name="foto" required /> <!-- rename it -->
+                                            </div>
+                                        </span>
+                                    </div>
+                                        </div>
+                           
+
+                                </div>
+                                <div class="modal-footer"> 
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </div>
+                                </div>
+                                </form>
+
+        @endif
+                        </div>
+                    </div>
+        <!--------------------------------- -----------------FINAL DEL Modal  EDITAR FECHA -------------------------------->
+
+
+                <!--------------------------------- -----------------INICIO DEL Modal  BORRAR FECHA -------------------------------->
+<div class="row">
+            <div class="col-12" style="background-color:#0c0527;">
+                    @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                            
+                            <div class="modal fade" id="modalBorrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                             <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <!--FORMULARIO EN MODAL-->
+                                <form form action="{{ 'BorrarFecha' }}" id="myForm" role="form" data-toggle="validator" method="post"           accept-charset="utf-8" enctype="multipart/form-data">
+                                           <meta name="csrf-token" content="{{ csrf_token() }}">
+                                           {{ csrf_field() }}
+                                
+                                        <div class="form-group">
+                                        <label>Ingrese el ID de la Fecha a eliminar: </label>
+                                          <input type="text" class="form-control" name="identificador" placeholder="Ej: 1" required>
+                                        </div>   
+                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-outline-danger"
+                                        onclick="return confirm('¿Seguro que desea Eliminarlo?')">Eliminar</button>
+                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                    </div>
+                                </form>
+
+        @endif
+                        </div>
+                    </div>
+        <!--------------------------------- -----------------FINAL DEL Modal  BORRAR FECHA -------------------------------->
+      
+    <!-- ##### Proximos Shows Area Fin ##### -->
+
+
 
     <!-- #####  Album Area Start ##### -->
     <div class="featured-album-area section-padding-100 clearfix">

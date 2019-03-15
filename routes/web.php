@@ -11,19 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', 'PfechasController@obtenerFechas')->name('obtenerFechas');
 
 
-Route::get('aboutUs', function () {
-    return view('users.nosotros');
-});
-
+Route::get('/aboutUs', 'DatosbiografiaController@into')->name('aboutUs');
 
 Route::get('gallery', function () {
     return view('users.galeria');
 });
+
 
 Route::get('contact', function () {
     return view('users.contacto');
@@ -32,7 +33,12 @@ Route::get('contact', function () {
 
 Route::post('/actualizardatosBiografia', 'DatosbiografiaController@actualizardatosBiografia')->name('actualizardatosBiografia');
 
-Route::get('/contactoM', 'DatosbiografiaController@index')->name('contactoM');
+Route::post('/NuevaFecha', 'PfechasController@NuevaFecha')->name('NuevaFecha');
+
+Route::post('/ActualizarFechas', 'PfechasController@ActualizarFechas')->name('ActualizarFechas');
+
+Route::post('/BorrarFecha', 'PfechasController@BorrarFecha')->name('BorrarFecha');
+
 
 Auth::routes();
 
