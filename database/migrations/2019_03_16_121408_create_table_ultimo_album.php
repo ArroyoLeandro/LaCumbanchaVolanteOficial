@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableDatosbiografia extends Migration
+class CreateTableUltimoAlbum extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class CreateTableDatosbiografia extends Migration
     public function up()
     {
         Schema::defaultStringLength(1000);
-        Schema::create('datosbiografia', function (Blueprint $table) {
+        Schema::create('UltimoAlbum', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titulo');
-            $table->string('descripcion');
-            $table->string('Imagen')->nullable();
+            $table->string('imagen');
+            $table->string('link');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateTableDatosbiografia extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('datosbiografia');
+        Schema::dropIfExists('UltimoAlbum');
     }
 }

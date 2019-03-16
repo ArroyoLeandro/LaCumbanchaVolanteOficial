@@ -2,7 +2,7 @@
 @section('content')
 <div style="background-color: #0c0527">
 <br><br><br><br><br><br><br><br>
-<div class="container" style="background-color: #0c0527">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

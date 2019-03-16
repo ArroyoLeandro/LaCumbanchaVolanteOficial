@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\ProximasFechas;
+use App\UltimoAlbum;
+use App\Datosbiografia;
 use Illuminate\Http\Request;
 use Auth;
 use Redirect;
@@ -12,6 +14,30 @@ use Intervention\Image\Facades\Image as Image;
 class PfechasController extends Controller
 {
 
+
+    public function index(){
+        return view('index');
+     }
+ 
+ 
+ 
+     public function ActualizarIndex(){
+         $fechas;
+         $fechas= new ProximasFechas();         
+         $fechas = ProximasFechas::all()->sortby('id',false);
+ 
+         $album;
+         $album= new UltimoAlbum();  
+         $album = UltimoAlbum::all()->last();
+
+         $datos;
+         $datos= new Datosbiografia();  
+         $datos = Datosbiografia::all()->last();
+ 
+
+       return view("index", compact('fechas','album', 'datos'));
+      }
+ 
 
     public function NuevaFecha(Request $request){
         // dd($request->all());
@@ -43,7 +69,7 @@ class PfechasController extends Controller
          header("Pragma: no-cache");
          //-------------------------------------
  
-         return Redirect::to(route('obtenerFechas'));
+         return Redirect::to(route('ActualizarIndex'));
      }
 
 
@@ -73,7 +99,7 @@ class PfechasController extends Controller
          header("Cache-Control: post-check=0, pre-check=0", false);
          header("Pragma: no-cache");
          //-------------------------------------
-         return Redirect::to(route('obtenerFechas'));
+         return Redirect::to(route('ActualizarIndex'));
        
      }
 
@@ -97,25 +123,10 @@ class PfechasController extends Controller
            header("Cache-Control: post-check=0, pre-check=0", false);
            header("Pragma: no-cache");
            //-------------------------------------
-           return Redirect::to(route('obtenerFechas'));
+           return Redirect::to(route('ActualizarIndex'));
            
 
        }
-  
-
-
-    public function index(){
-       return view('index');
-    }
-
-
-
-    public function obtenerFechas(){
-
-        $fecha = ProximasFechas::all()->sortby('id',false);
-
-      return view("index", compact('fecha'));
-     }
-
+ 
 
 }

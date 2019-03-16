@@ -4,19 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Datosbiografia extends Model
+class UltimoAlbum extends Model
 {
     public $timestamps = false;
     protected $connection = 'mysql';
-    protected $table='datosbiografia';
+    protected $table='UltimoAlbum';
 	// protected $dates = ['deleted_at'];
     protected $fillable = [
     	'id',
-    	'titulo',
-        'descripcion',
-        'desCorta',
-        'Imagen',
+    	'imagen',
+        'link',
     ];
-
-
 }

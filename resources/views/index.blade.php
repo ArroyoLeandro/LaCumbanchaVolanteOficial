@@ -51,13 +51,23 @@
                 <!-- sobre nosotros  Contenido -->
                 <div class="col-12 col-lg-6">
                     <div class="about-content mb-100">
-                        <h2 style="color:#fff;">Hola, Somos La Cumbancha Volante</h2>
-                        <p>Banda de ROCK ubicada en Tigre, Provincia de Buenos Aires. Están invitados a escuchar.</p>
+                        <h2 style="color:#fff;">{{ $datos->titulo }}</h2>
+                        <p>{{ $datos->desCorta }}</p>
                         <div class="buy-tickets">
                                 <!--el href tiene que ser dinamico-->
                                 <a href="{{url('aboutUs')}}" class="btn musica-btn">Saber Mas</a>
                             </div>
-                        <!--   <img src="img/core-img/signature.png" alt="">-->
+                            
+                                   <!-- INICIO DEL BOTON -->
+                                   <br>
+                                   <div class="buy-tickets">
+                                   @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ActDesCorta">
+                                   Actualizar Descripcion Corta
+                                   </button>
+                               @endif
+                               </div>
+                                <!-- FIN DEL BOTON -->
                     </div>
                 </div>
             </div>
@@ -85,7 +95,7 @@
                     <!-- Proximos Shows Content -->
                     <div class="upcoming-shows-content">
 
-                        @foreach($fecha as $Fec)
+                        @foreach($fechas as $Fec)
 
                      
                         <!-- Single Proximos Shows -->
@@ -346,7 +356,111 @@
                         </div>
                     </div>
         <!--------------------------------- -----------------FINAL DEL Modal  BORRAR FECHA -------------------------------->
-      
+       <!--------------------------------- -----------------INICIO DEL Modal  ACTUALIZAR ALBUM -------------------------------->
+            
+       <div class="row">
+            <div class="col-12" style="background-color:#0c0527;">
+                   
+            @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                            <div class="modal fade" id="ActAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                             <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Actualizar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <!--FORMULARIO EN MODAL-->
+                                <form form action="{{ 'ActualizarAlbum' }}" id="myForm" role="form" data-toggle="validator" method="post"           accept-charset="utf-8" enctype="multipart/form-data">
+                                           <meta name="csrf-token" content="{{ csrf_token() }}">
+                                           {{ csrf_field() }}
+                                
+                               
+
+                                <div class="form-group">
+                                         <label>Nuevo Link del Album</label>
+                                         <input type="text" class="form-control" name="link" placeholder="Ej: https://open.spotify.com/album/xxx" required>
+                                        </div>
+
+                                
+                                <div class="form-group">
+                                   <div class="input-group image-preview">
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-input -->
+                                            <div class="btn btn-default image-preview-input">
+                                                <span class="glyphicon glyphicon-folder-open">Nueva Imagen</span><br>
+                                                 <!-- <span class="image-preview-input-title">Buscar Imagen->  </span> -->
+                                                <input type="file" accept="image/jpg" name="foto" required /> <!-- rename it -->
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                </div><!--MODAL BODY-->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"
+                                        onclick="return confirm('¿Seguro que desea Actualizar?')">Actualizar</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                    </div>
+                                </form>
+
+                                @endif
+                        </div>
+                    </div>
+                    
+        <!--------------------------------- -----------------FINAL DEL Modal  ACTUALIZAR ALBUM -------------------------------->
+
+
+ <!--------------------------------- -----------------INICIO DEL Modal  ACTUALIZAR DESCRIPCION CORTA -------------------------------->
+            
+ <div class="row">
+            <div class="col-12" style="background-color:#0c0527;">
+                   
+            @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                            <div class="modal fade" id="ActDesCorta" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                             <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Actualizar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <!--FORMULARIO EN MODAL-->
+                                <form form action="{{ 'ActualizarDesCorta' }}" id="myForm" role="form" data-toggle="validator" method="post"           accept-charset="utf-8" enctype="multipart/form-data">
+                                           <meta name="csrf-token" content="{{ csrf_token() }}">
+                                           {{ csrf_field() }}
+                                
+                               
+
+                                    <div class="form-group">
+                                        <label>Nueva Descripcion Corta</label>
+                                        <textarea class="form-control" rows="3" name="desCorta" placeholder="Ej: Banda de ROCK ubicada en Tigre" require></textarea>
+                                    </div>
+
+                                </div><!--MODAL BODY-->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"
+                                        onclick="return confirm('¿Seguro que desea Actualizar?')">Actualizar</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                    </div>
+                                </form>
+
+                                @endif
+                        </div>
+                    </div>
+                    
+        <!--------------------------------- -----------------FINAL DEL Modal  ACTUALIZAR DESCRIPCION CORTA -------------------------------->
+
+
+
+
     <!-- ##### Proximos Shows Area Fin ##### -->
 
 
@@ -358,13 +472,14 @@
                 <div class="col-12">
                         <div class="section-heading">
                                 <h2>Ultimo Album</h2>
+                            
                                 <h6>#Spotify</h6>
                             </div>
                     <div class="featured-album-content d-flex flex-wrap">
 
                         <!-- Album Thumbnail image: url(img/bg-img/album.jpg);-->
                         <div class="album-thumbnail h-100 bg-img">
-                            <img src="img/bg-img/album.jpg" alt="Portada Album" style="margin:7% 5%; 7% 5%;">
+                            <img src="{{ $album->imagen }}" alt="Portada Album" style="margin:7% 5%; 7% 5%;">
                             </div>
                         <!-- Album Songs -->
                         <div class="album-songs h-100">
@@ -373,13 +488,23 @@
                             <div class="album-info mb-50 d-flex flex-wrap align-items-center justify-content-between">
                                
                                 <div class="album-buy-now">
+                                        <p></p>
                                     <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:2rTSqY8x1KT76ImiGYcFlp&size=detail&theme=dark&show-count=0" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
                                 </div>
+
+                                 <!-- INICIO DEL BOTON -->
+                            @if(Auth::user()!=null && Auth::user()->tipoUser=='admin')
+                                   
+                                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ActAlbum">
+                                   Actualizar Disco
+                                   </button>
+                               @endif
+                                <!-- FIN DEL BOTON -->
                             </div>
 
                             <div class="album-all-songs">
                                         <!--Link del album dinamico-->
-                                    <iframe src="https://open.spotify.com/embed/album/0alVJan5Y0c2PIATNngNwX" 
+                                    <iframe src="{{ $album->link }}" 
                                     width="500" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                             </div>
 
